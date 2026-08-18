@@ -1,0 +1,13 @@
+{
+  "title": "Community Search",
+  "type": "community-search",
+  "description": "Search box that queries the Siemens search API and navigates to community results.",
+  "category": "custom",
+  "source": {
+    "path": "dist",
+    "entry": "index.html"
+  },
+  "configuration": {
+    "properties": []
+  }
+}
