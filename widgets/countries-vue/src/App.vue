@@ -15,7 +15,7 @@ const error = ref<string | null>(null);
 let cancelled = false;
 
 new window.WidgetServiceSDK().connectors
-  .execute({ permalink: "rest-countries", method: "GET" })
+  .execute({ permalink: "rest-countries-mallika", method: "GET" })
   .then((raw) => {
     if (cancelled) return;
     countries.value = [...raw]

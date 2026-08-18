@@ -10624,7 +10624,7 @@ function io({ sdk: A }) {
   const [el, W] = Oa.useState(A.getProps()), [h, sl] = Oa.useState([]), [vl, Sl] = Oa.useState(!0), [Tl, N] = Oa.useState(null);
   return Oa.useEffect(() => A.on("propsChanged", W), [A]), Oa.useEffect(() => {
     let T = !1;
-    return new window.WidgetServiceSDK().connectors.execute({ permalink: "rest-countries", method: "GET" }).then((V) => {
+    return new window.WidgetServiceSDK().connectors.execute({ permalink: "rest-countries-mallika", method: "GET" }).then((V) => {
       T || (sl(
         [...V].sort((U, F) => F.population - U.population).slice(0, _v).map((U) => {
           var F;

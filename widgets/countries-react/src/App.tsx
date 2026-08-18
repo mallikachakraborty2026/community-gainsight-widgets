@@ -16,7 +16,7 @@ export function App({ sdk }: { sdk: WidgetSDK }) {
   useEffect(() => {
     let cancelled = false;
     new window.WidgetServiceSDK().connectors
-      .execute({ permalink: "rest-countries", method: "GET" })
+      .execute({ permalink: "rest-countries-mallika", method: "GET" })
       .then((raw) => {
         if (cancelled) return;
         setCountries(

@@ -18,14 +18,14 @@
           "overridable": false
         }
       ],
-      "permalink": "rest-countries",
+      "permalink": "rest-countries-mallika",
       "response_content_type": "application/json"
     }
   ],
   "composite_connectors": [
     {
       "name": "Country Lookup",
-      "permalink": "country-lookup",
+      "permalink": "country-lookup-mallika",
       "steps": [
         {
           "name": "all-countries",

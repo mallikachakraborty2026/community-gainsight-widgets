@@ -91,7 +91,7 @@ export async function init(sdk: WidgetSDK) {
 
   let cancelled = false;
   new window.WidgetServiceSDK().connectors
-    .execute({ permalink: "rest-countries", method: "GET" })
+    .execute({ permalink: "rest-countries-mallika", method: "GET" })
     .then((raw) => {
       if (cancelled) return;
       const sorted = [...raw]

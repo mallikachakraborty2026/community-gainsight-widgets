@@ -3914,7 +3914,7 @@ const yl = { class: "country-item" }, bl = ["src", "alt"], xl = { class: "countr
     qt(n);
     const s = /* @__PURE__ */ $t([]), r = /* @__PURE__ */ $t(!0), i = /* @__PURE__ */ $t(null);
     let o = !1;
-    return new window.WidgetServiceSDK().connectors.execute({ permalink: "rest-countries", method: "GET" }).then((l) => {
+    return new window.WidgetServiceSDK().connectors.execute({ permalink: "rest-countries-mallika", method: "GET" }).then((l) => {
       o || (s.value = [...l].sort((f, d) => d.population - f.population).slice(0, Fs).map((f) => {
         var d;
         return { name: f.name.common, capital: ((d = f.capital) == null ? void 0 : d[0]) ?? "N/A", population: f.population, flag: f.flags.png, region: f.region };

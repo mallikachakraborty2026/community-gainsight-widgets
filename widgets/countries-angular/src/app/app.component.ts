@@ -70,7 +70,7 @@ export class AppComponent {
     (async () => {
       try {
         const raw = await new window.WidgetServiceSDK().connectors.execute({
-          permalink: "rest-countries",
+          permalink: "rest-countries-mallika",
           method: "GET",
         });
         if (cancelled) return;

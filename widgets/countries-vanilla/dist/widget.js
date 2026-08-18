@@ -42,7 +42,7 @@ async function k(e) {
   });
   n.appendChild(f());
   let p = !1;
-  new window.WidgetServiceSDK().connectors.execute({ permalink: "rest-countries", method: "GET" }).then((l) => {
+  new window.WidgetServiceSDK().connectors.execute({ permalink: "rest-countries-mallika", method: "GET" }).then((l) => {
     if (p) return;
     const s = [...l].sort((a, d) => d.population - a.population).slice(0, u);
     n.innerHTML = "";
