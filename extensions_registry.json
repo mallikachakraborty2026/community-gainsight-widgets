@@ -285,6 +285,12 @@
       "name": "header-test",
       "description": "Tests whether xd-utils and universal-components CDN scripts load correctly",
       "path": "./scripts/header-test/script.js"
+    },
+    {
+      "name": "hello",
+      "path": "./scripts/hello/script.js",
+      "description": "Logs a greeting to the console on every page",
+      "placement": "head"
     }
   ]
 }
