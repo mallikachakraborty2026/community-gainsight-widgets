@@ -1,23 +1,17 @@
 import { useState, useCallback } from 'react'
-import { useCommunitySearch, type CommunityHit } from './useCommunitySearch'
+import { useCommunitySearch, type SearchHit, SIEMENS_SEARCH_URL } from './useCommunitySearch'
 
-const COMMUNITY_SEARCH_URL = 'https://siemens-en-sandbox-community.insided.com/search'
-
-const TYPE_LABEL: Record<string, string> = {
-  question: 'Q&A',
-  article: 'Article',
-  event: 'Event',
-  idea: 'Idea',
-}
-
-function HitItem({ hit, onSelect }: { hit: CommunityHit; onSelect: (hit: CommunityHit) => void }) {
+function HitItem({ hit, onSelect }: { hit: SearchHit; onSelect: (hit: SearchHit) => void }) {
   return (
     <li
       className="suggestion-item"
       onMouseDown={(e) => { e.preventDefault(); onSelect(hit) }}
     >
-      <span className="hit-title">{hit.title}</span>
-      {hit.type && <span className="hit-type">{TYPE_LABEL[hit.type] ?? hit.type}</span>}
+      <div className="hit-content">
+        <span className="hit-title">{hit.title ?? hit.term}</span>
+        {hit.description && <span className="hit-desc">{hit.description}</span>}
+      </div>
+      <span className="hit-type">{hit.mediatype === 'PRODUCT' ? 'Product' : hit.subtype}</span>
     </li>
   )
 }
@@ -26,21 +20,25 @@ export function SearchWidget() {
   const [inputValue, setInputValue] = useState('')
   const [open, setOpen] = useState(false)
 
-  const { hits, isFetching, available } = useCommunitySearch(inputValue)
+  const { hits, isFetching } = useCommunitySearch(inputValue)
   const hasHits = hits.length > 0
 
   const handleSubmit = useCallback(
     (term = inputValue) => {
       if (!term.trim()) return
       setOpen(false)
-      window.location.href = `${COMMUNITY_SEARCH_URL}?q=${encodeURIComponent(term.trim())}`
+      window.location.href = `${SIEMENS_SEARCH_URL}?query=${encodeURIComponent(term.trim())}`
     },
     [inputValue]
   )
 
-  const handleSelectHit = useCallback((hit: CommunityHit) => {
+  const handleSelectHit = useCallback((hit: SearchHit) => {
     setOpen(false)
-    window.location.href = hit.url
+    if (hit.url) {
+      window.open(hit.url, '_blank', 'noopener,noreferrer')
+    } else {
+      window.location.href = `${SIEMENS_SEARCH_URL}?query=${encodeURIComponent(hit.term)}`
+    }
   }, [])
 
   return (
@@ -52,7 +50,7 @@ export function SearchWidget() {
         <input
           type="search"
           className="search-input"
-          placeholder="Search community…"
+          placeholder="Search Siemens…"
           value={inputValue}
           autoComplete="off"
           onChange={(e) => { setInputValue(e.currentTarget.value); setOpen(true) }}
@@ -73,17 +71,13 @@ export function SearchWidget() {
       {open && hasHits && (
         <ul className="suggestions-list" role="listbox">
           {hits.map((hit) => (
-            <HitItem key={hit.topic_url} hit={hit} onSelect={handleSelectHit} />
+            <HitItem key={`${hit.mediatype}-${hit.term}`} hit={hit} onSelect={handleSelectHit} />
           ))}
         </ul>
       )}
 
       {open && isFetching && inputValue.length >= 2 && !hasHits && (
         <div className="suggestions-loading">Loading…</div>
-      )}
-
-      {open && !available && inputValue.length >= 2 && (
-        <div className="suggestions-loading">Press Enter to search</div>
       )}
     </div>
   )

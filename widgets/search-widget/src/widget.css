@@ -95,11 +95,27 @@
   gap: 8px;
 }
 
-.hit-title {
+.hit-content {
   flex: 1;
+  overflow: hidden;
+  min-width: 0;
+}
+
+.hit-title {
+  display: block;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+}
+
+.hit-desc {
+  display: block;
+  font-size: 12px;
+  color: #666;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  margin-top: 2px;
 }
 
 .hit-type {
