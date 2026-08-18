@@ -1,17 +1,17 @@
-import { defineConfig } from 'vite'
-import react from '@vitejs/plugin-react'
+import { defineConfig } from "vite";
+import react from "@vitejs/plugin-react-swc";
 
 export default defineConfig(({ command }) => ({
   plugins: [react()],
   server: {
     cors: true,
   },
-  define: command === 'build' ? { 'process.env.NODE_ENV': JSON.stringify('production') } : {},
+  define: command === "build" ? { "process.env.NODE_ENV": JSON.stringify("production") } : {},
   build: {
     lib: {
-      entry: 'src/index.tsx',
-      formats: ['es'],
-      fileName: 'widget',
+      entry: "src/main.tsx",
+      formats: ["es"],
+      fileName: "widget",
     },
   },
-}))
+}));
