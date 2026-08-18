@@ -2,7 +2,7 @@
   "widgets": [
     {
       "title": "Greeting Card",
-      "type": "my_first_widget_greeting",
+      "type": "greeting-card-mallika",
       "description": "A simple greeting card widget",
       "category": "custom",
       "source": {
@@ -249,6 +249,7 @@
       "configuration": {
         "properties": []
       },
+      "defaultConfig": {},
       "type": "community-search"
     }
   ],
