@@ -5,6 +5,13 @@ export default defineConfig(({ command }) => ({
   plugins: [react()],
   server: {
     cors: true,
+    proxy: {
+      '/search/searchToken': {
+        target: 'https://siemens-en-sandbox-community.insided.com',
+        changeOrigin: true,
+        secure: true,
+      },
+    },
   },
   define: command === "build" ? { "process.env.NODE_ENV": JSON.stringify("production") } : {},
   build: {

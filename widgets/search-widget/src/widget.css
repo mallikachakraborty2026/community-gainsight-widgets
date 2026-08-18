@@ -88,27 +88,26 @@
   font-weight: 600;
 }
 
-.suggestion-item--product {
+.suggestion-item {
   display: flex;
-  flex-direction: column;
-  gap: 2px;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 8px;
 }
 
-.product-label {
-  font-size: 11px;
-  text-transform: uppercase;
-  color: #888;
-  letter-spacing: 0.04em;
+.hit-title {
+  flex: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
-.suggestions-divider {
-  padding: 6px 14px 4px;
+.hit-type {
   font-size: 11px;
-  text-transform: uppercase;
   color: #888;
+  text-transform: uppercase;
   letter-spacing: 0.04em;
-  border-top: 1px solid #eee;
-  cursor: default;
+  flex-shrink: 0;
 }
 
 .suggestions-loading {
