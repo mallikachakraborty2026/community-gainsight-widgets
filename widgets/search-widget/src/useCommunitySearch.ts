@@ -9,23 +9,25 @@ export const SIEMENS_SEARCH_URL = 'https://www.siemens.com/en-us/search.html'
 
 export interface SearchHit {
   term: string
+  highlighted: string
   mediatype: 'WEB' | 'PRODUCT'
   subtype: string
   url: string | null
   title: string | null
   description: string | null
+  label: string | null
 }
 
-interface RawWebSuggestion { term: string; type: string }
-interface RawProductDocument { title?: string; description?: string; url?: string }
-interface RawProductSuggestion { term: string; type: string; document?: RawProductDocument }
+interface RawWebSuggestion { term: string; type: string; highlighted: string }
+interface RawProductDocument { title?: string; description?: string; url?: string; label?: string }
+interface RawProductSuggestion { term: string; type: string; highlighted: string; document?: RawProductDocument }
 
 const GQL_QUERY = `
   query GlobalSearchSuggestions($web: Suggestion!, $product: Suggestion!) {
-    suggestionsWeb: suggestions(suggestion: $web) { term type }
+    suggestionsWeb: suggestions(suggestion: $web) { term type highlighted }
     suggestionsProduct: suggestions(suggestion: $product) {
-      term type
-      document { title description url }
+      term type highlighted
+      document { title description url label }
     }
   }
 `
@@ -70,20 +72,24 @@ async function querySiemensAI(q: string, signal: AbortSignal): Promise<SearchHit
 
   const web: SearchHit[] = webRaw.map(s => ({
     term: s.term,
+    highlighted: s.highlighted ?? s.term,
     mediatype: 'WEB' as const,
     subtype: s.type ?? '',
     url: null,
     title: null,
     description: null,
+    label: null,
   }))
 
   const products: SearchHit[] = productRaw.map(s => ({
     term: s.term,
+    highlighted: s.highlighted ?? s.term,
     mediatype: 'PRODUCT' as const,
     subtype: s.type ?? '',
     url: s.document?.url ?? null,
     title: s.document?.title ?? null,
     description: s.document?.description ?? null,
+    label: s.document?.label ?? null,
   }))
 
   return [...web, ...products]

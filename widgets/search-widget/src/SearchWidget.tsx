@@ -1,18 +1,34 @@
 import { useState, useCallback } from 'react'
 import { useCommunitySearch, type SearchHit, SIEMENS_SEARCH_URL } from './useCommunitySearch'
 
-function HitItem({ hit, onSelect }: { hit: SearchHit; onSelect: (hit: SearchHit) => void }) {
+function WebItem({ hit, onSelect }: { hit: SearchHit; onSelect: (hit: SearchHit) => void }) {
   return (
     <li
       className="suggestion-item"
+      role="option"
+      aria-selected="false"
       onMouseDown={(e) => { e.preventDefault(); onSelect(hit) }}
-    >
-      <div className="hit-content">
-        <span className="hit-title">{hit.title ?? hit.term}</span>
-        {hit.description && <span className="hit-desc">{hit.description}</span>}
-      </div>
-      <span className="hit-type">{hit.mediatype === 'PRODUCT' ? 'Product' : hit.subtype}</span>
-    </li>
+      // highlighted contains <mark> tags from the API — same source as siemens.com header
+      dangerouslySetInnerHTML={{ __html: hit.highlighted }}
+    />
+  )
+}
+
+function ProductItem({ hit }: { hit: SearchHit }) {
+  if (!hit.url || !hit.title) return null
+  return (
+    <div className="product-item">
+      <a
+        className="product-link"
+        href={hit.url}
+        target="_blank"
+        rel="noreferrer noopener"
+        onMouseDown={(e) => e.preventDefault()}
+        dangerouslySetInnerHTML={{ __html: hit.title }}
+      />
+      {hit.label && <div className="product-by">by {hit.label}</div>}
+      {hit.description && <div className="product-desc">{hit.description}</div>}
+    </div>
   )
 }
 
@@ -21,6 +37,8 @@ export function SearchWidget() {
   const [open, setOpen] = useState(false)
 
   const { hits, isFetching } = useCommunitySearch(inputValue)
+  const webHits = hits.filter(h => h.mediatype === 'WEB')
+  const productHits = hits.filter(h => h.mediatype === 'PRODUCT')
   const hasHits = hits.length > 0
 
   const handleSubmit = useCallback(
@@ -32,13 +50,9 @@ export function SearchWidget() {
     [inputValue]
   )
 
-  const handleSelectHit = useCallback((hit: SearchHit) => {
+  const handleSelectWeb = useCallback((hit: SearchHit) => {
     setOpen(false)
-    if (hit.url) {
-      window.open(hit.url, '_blank', 'noopener,noreferrer')
-    } else {
-      window.location.href = `${SIEMENS_SEARCH_URL}?query=${encodeURIComponent(hit.term)}`
-    }
+    window.location.href = `${SIEMENS_SEARCH_URL}?query=${encodeURIComponent(hit.term)}`
   }, [])
 
   return (
@@ -69,11 +83,36 @@ export function SearchWidget() {
       </form>
 
       {open && hasHits && (
-        <ul className="suggestions-list" role="listbox">
-          {hits.map((hit) => (
-            <HitItem key={`${hit.mediatype}-${hit.term}`} hit={hit} onSelect={handleSelectHit} />
-          ))}
-        </ul>
+        <div className="suggestions-panel" role="listbox">
+          {webHits.length > 0 && (
+            <div className="suggestions-section" role="group">
+              <div className="section-header">Search suggestions</div>
+              <ul className="suggestions-list">
+                {webHits.map((hit) => (
+                  <WebItem key={`web-${hit.term}`} hit={hit} onSelect={handleSelectWeb} />
+                ))}
+              </ul>
+            </div>
+          )}
+
+          {productHits.length > 0 && (
+            <div className="suggestions-section suggestions-products" role="group">
+              <div className="section-header">Products</div>
+              {productHits.map((hit) => (
+                <ProductItem key={`product-${hit.term}`} hit={hit} />
+              ))}
+              <a
+                className="view-all-products"
+                href={`${SIEMENS_SEARCH_URL}?query=${encodeURIComponent(inputValue)}&tab=2`}
+                target="_blank"
+                rel="noreferrer noopener"
+                onMouseDown={(e) => e.preventDefault()}
+              >
+                View all products
+              </a>
+            </div>
+          )}
+        </div>
       )}
 
       {open && isFetching && inputValue.length >= 2 && !hasHits && (
