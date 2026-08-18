@@ -1,6 +1,8 @@
 (function () {
   'use strict';
 
+  console.log('[header-test] script started');
+
   function log(msg) {
     console.log('[header-test]', msg);
   }
