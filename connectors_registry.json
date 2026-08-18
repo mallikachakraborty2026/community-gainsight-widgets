@@ -1,7 +1,7 @@
 {
   "connectors": [
     {
-      "name": "REST Countries",
+      "name": "REST Countries Mallika",
       "url": "https://restcountries.com/v3.1/all",
       "method": "GET",
       "headers": [
@@ -24,7 +24,7 @@
   ],
   "composite_connectors": [
     {
-      "name": "Country Lookup",
+      "name": "Country Lookup Mallika",
       "permalink": "country-lookup-mallika",
       "steps": [
         {
