@@ -1,14 +1,15 @@
 (function () {
   'use strict';
 
-  // Skip if header is already injected and still present in DOM
-  if (document.body.hasAttribute('data-xd-header') && document.querySelector('header-xd-v1')) return;
-  // Skip if another execution is already in progress (race guard)
-  if (window.__xdHeaderInjecting) return;
-  window.__xdHeaderInjecting = true;
-  document.body.setAttribute('data-xd-header', '1');
+  function main() {
+    // Skip if header is already injected and still present in DOM
+    if (document.body.hasAttribute('data-xd-header') && document.querySelector('header-xd-v1')) return;
+    // Skip if another execution is already in progress (race guard)
+    if (window.__xdHeaderInjecting) return;
+    window.__xdHeaderInjecting = true;
+    document.body.setAttribute('data-xd-header', '1');
 
-  console.log('[header-test] script started');
+    console.log('[header-test] script started');
 
   function log(msg) {
     console.log('[header-test]', msg);
@@ -66,6 +67,15 @@
     },
     function () {
       log('ERROR: failed to load xd-utils from CDN');
+      window.__xdHeaderInjecting = false;
     }
   );
+}
+
+  // defer if body not yet parsed (script runs in <head>)
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', main);
+  } else {
+    main();
+  }
 })();
