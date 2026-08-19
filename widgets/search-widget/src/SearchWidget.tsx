@@ -1,16 +1,28 @@
 import { useState, useCallback } from 'react'
 import { useCommunitySearch, type SearchHit, COMMUNITY_SEARCH_URL } from './useCommunitySearch'
 
+// Matches the IconAI from xd-universal-components
+function IconAI() {
+  return (
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+      <path fill="currentColor" fillRule="evenodd" d="m15 9-4-1.5L15 6l1.5-4L18 6l4 1.5L18 9l-1.5 4L15 9Zm-8 8-5-2 5-2 2-5 2 5 5 2-5 2-2 5-2-5Z" />
+    </svg>
+  )
+}
+
 function WebItem({ hit, onSelect }: { hit: SearchHit; onSelect: (hit: SearchHit) => void }) {
+  const isQuestion = hit.subtype === 'QUESTIONS'
   return (
     <li
-      className="suggestion-item"
+      className={`suggestion-item${isQuestion ? ' suggestion-item--question' : ''}`}
       role="option"
       aria-selected="false"
       onMouseDown={(e) => { e.preventDefault(); onSelect(hit) }}
-      // highlighted contains <mark> tags from the API — same source as siemens.com header
-      dangerouslySetInnerHTML={{ __html: hit.highlighted }}
-    />
+    >
+      {isQuestion && <IconAI />}
+      {/* highlighted contains <mark> tags from the API — same source as siemens.com header */}
+      <span dangerouslySetInnerHTML={{ __html: hit.highlighted }} />
+    </li>
   )
 }
 
@@ -65,55 +77,66 @@ export function SearchWidget() {
         className="search-form"
         onSubmit={(e) => { e.preventDefault(); handleSubmit() }}
       >
+        {/* Overlay placeholder matching the siemens.com header style */}
+        {inputValue === '' && (
+          <span className="search-placeholder" aria-hidden="true">
+            Search with AI <IconAI />
+          </span>
+        )}
         <input
           type="search"
           className="search-input"
-          placeholder="Search with AI…"
+          placeholder=" "
           value={inputValue}
           autoComplete="off"
           onChange={(e) => { setInputValue(e.currentTarget.value); setOpen(true) }}
           onFocus={() => setOpen(true)}
           onBlur={() => setOpen(false)}
-          aria-label="Search"
+          aria-label="Search with AI"
           aria-autocomplete="list"
           aria-expanded={open && hasHits}
         />
-        <button type="submit" className="search-btn" aria-label="Submit search">
-          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" strokeWidth="2">
-            <circle cx="11" cy="11" r="8" />
-            <line x1="21" y1="21" x2="16.65" y2="16.65" />
+        <button
+          type="submit"
+          className="search-btn"
+          aria-label="Submit search"
+          disabled={inputValue.trim().length < 2}
+        >
+          <svg viewBox="0 0 20 20" width="20" height="20" fill="currentColor" aria-hidden="true">
+            <path d="M19.862 18.316 15.12 13.574a.464.464 0 0 0-.332-.137h-.516a8.123 8.123 0 1 0-.836.836v.516c0 .124.05.243.137.332l4.742 4.742a.469.469 0 0 0 .664 0l.883-.883a.469.469 0 0 0 0-.664ZM8.125 14.374a6.25 6.25 0 1 1 0-12.5 6.25 6.25 0 0 1 0 12.5Z"/>
           </svg>
         </button>
       </form>
 
       {open && hasHits && (
         <div className="suggestions-panel" role="listbox">
-          {webHits.length > 0 && (
-            <div className="suggestions-section" role="group">
-              <div className="section-header">Search suggestions</div>
-              <ul className="suggestions-list">
-                {webHits.map((hit) => (
-                  <WebItem key={`web-${hit.term}`} hit={hit} onSelect={handleSelectWeb} />
+          <div className="suggestions-columns">
+            {webHits.length > 0 && (
+              <div className="suggestions-col" role="group">
+                <div className="section-header">Search Suggestions</div>
+                <ul className="suggestions-list">
+                  {webHits.map((hit) => (
+                    <WebItem key={`web-${hit.term}`} hit={hit} onSelect={handleSelectWeb} />
+                  ))}
+                </ul>
+              </div>
+            )}
+            {productHits.length > 0 && (
+              <div className="suggestions-col" role="group">
+                <div className="section-header">Products</div>
+                {productHits.map((hit) => (
+                  <ProductItem key={`product-${hit.term}`} hit={hit} onSelect={handleSelectProduct} />
                 ))}
-              </ul>
-            </div>
-          )}
-
-          {productHits.length > 0 && (
-            <div className="suggestions-section suggestions-products" role="group">
-              <div className="section-header">Products</div>
-              {productHits.map((hit) => (
-                <ProductItem key={`product-${hit.term}`} hit={hit} onSelect={handleSelectProduct} />
-              ))}
-              <a
-                className="view-all-products"
-                href={`${COMMUNITY_SEARCH_URL}?q=${encodeURIComponent(inputValue)}`}
-                onMouseDown={(e) => e.preventDefault()}
-              >
-                View all in community
-              </a>
-            </div>
-          )}
+                <a
+                  className="view-all-products"
+                  href={`${COMMUNITY_SEARCH_URL}?q=${encodeURIComponent(inputValue)}`}
+                  onMouseDown={(e) => e.preventDefault()}
+                >
+                  View all product results
+                </a>
+              </div>
+            )}
+          </div>
         </div>
       )}
 

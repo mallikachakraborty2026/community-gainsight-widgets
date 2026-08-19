@@ -1,6 +1,6 @@
 :host {
   display: block;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  font-family: 'Siemens Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
 }
 
 .search-widget {
@@ -12,30 +12,56 @@
 .search-form {
   display: flex;
   align-items: center;
-  border: 1.5px solid #ccc;
-  border-radius: 4px;
-  overflow: hidden;
-  background: #fff;
+  position: relative;
+  border: 1px solid #b3b3be;
+  background: #000028;
   transition: border-color 0.2s;
 }
 
 .search-form:focus-within {
-  border-color: #009999;
+  border-color: #00ffb9;
 }
 
 .search-input {
   flex: 1;
   border: none;
   outline: none;
-  padding: 10px 12px;
+  padding: 12px 12px 12px 20px;
   font-size: 14px;
+  min-height: 48px;
   background: transparent;
-  /* reset browser search field styling */
+  color: #fff;
+  caret-color: #fff;
+  appearance: none;
   -webkit-appearance: none;
+  z-index: 1;
+  position: relative;
 }
 
 .search-input::-webkit-search-cancel-button {
   -webkit-appearance: none;
+}
+
+.search-input:-webkit-autofill,
+.search-input:-webkit-autofill:focus {
+  -webkit-box-shadow: 0 0 0 50px #000028 inset;
+  -webkit-text-fill-color: #fff;
+}
+
+/* Placeholder overlay — shown when input is empty, hidden when typing */
+.search-placeholder {
+  position: absolute;
+  left: 20px;
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: #b3b3be;
+  font-size: 14px;
+  pointer-events: none;
+  z-index: 0;
+  white-space: nowrap;
 }
 
 .search-btn {
@@ -43,47 +69,55 @@
   align-items: center;
   justify-content: center;
   padding: 0 12px;
-  height: 40px;
+  height: 48px;
   border: none;
-  background: #009999;
-  color: #fff;
+  background: transparent;
+  color: #9999a9;
   cursor: pointer;
-  transition: background 0.2s;
+  transition: color 0.2s;
+  z-index: 1;
 }
 
 .search-btn:hover {
-  background: #007a7a;
+  color: #00ffb9;
+}
+
+.search-btn:disabled {
+  color: #4d4d6e;
+  cursor: default;
 }
 
 .suggestions-panel {
   position: absolute;
-  top: calc(100% + 4px);
+  top: calc(100% + 2px);
   left: 0;
   right: 0;
-  background: #fff;
-  border: 1px solid #ddd;
-  border-radius: 4px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  background: #000028;
+  border: 1px solid #66667e;
   z-index: 9999;
-  max-height: 420px;
-  overflow-y: auto;
+  padding: 20px;
 }
 
-.suggestions-section {
-  padding: 4px 0;
+.suggestions-columns {
+  display: flex;
+  gap: 32px;
 }
 
-.suggestions-section + .suggestions-section {
-  border-top: 1px solid #f0f0f0;
+.suggestions-col {
+  flex: 1;
+  min-width: 0;
 }
 
 .section-header {
-  padding: 8px 14px 4px;
-  font-size: 11px;
-  font-weight: 600;
-  color: #888;
+  height: 42px;
+  border-bottom: 1px solid #737389;
+  display: flex;
+  align-items: center;
+  font-size: 12px;
+  font-weight: 700;
+  color: #b3b3be;
   text-transform: uppercase;
-  letter-spacing: 0.06em;
+  letter-spacing: 0.08em;
 }
 
 .suggestions-list {
@@ -93,46 +127,61 @@
 }
 
 .suggestion-item {
-  padding: 9px 14px;
   font-size: 14px;
+  font-weight: 500;
+  margin-top: 16px;
   cursor: pointer;
-  color: #333;
+  color: #fff;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+  letter-spacing: 0;
+  list-style: none;
 }
 
 .suggestion-item:hover {
-  background: #f5f5f5;
+  color: #00ffb9;
 }
 
 .suggestion-item mark {
   background: none;
-  font-weight: 600;
+  font-weight: 700;
   color: inherit;
 }
 
+/* QUESTIONS type — pill border + sparkle icon */
+.suggestion-item--question {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  border: 1px solid #b3b3be;
+  border-radius: 8px;
+  padding: 4px 10px;
+  white-space: normal;
+  overflow: visible;
+}
+
 .product-item {
-  padding: 9px 14px;
+  margin-top: 16px;
   cursor: pointer;
 }
 
 .product-item:hover {
-  background: #f5f5f5;
+  background: #00183b;
 }
 
 .product-link {
   display: block;
   font-size: 14px;
-  font-weight: 500;
-  color: #333;
+  font-weight: 700;
+  color: #fff;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
 }
 
 .product-item:hover .product-link {
-  color: #009999;
+  color: #00ffb9;
 }
 
 .product-link mark {
@@ -143,13 +192,14 @@
 
 .product-by {
   font-size: 12px;
-  color: #888;
-  margin-top: 2px;
+  color: #b3b3be;
+  margin-top: 3px;
+  line-height: 1.4;
 }
 
 .product-desc {
   font-size: 12px;
-  color: #666;
+  color: #9999a9;
   margin-top: 2px;
   white-space: nowrap;
   overflow: hidden;
@@ -157,28 +207,26 @@
 }
 
 .view-all-products {
-  display: block;
-  padding: 8px 14px;
-  font-size: 13px;
-  color: #009999;
+  display: inline-block;
+  margin-top: 20px;
+  font-size: 14px;
+  font-weight: 600;
+  color: #00cccc;
   text-decoration: none;
-  font-weight: 500;
-  border-top: 1px solid #f0f0f0;
 }
 
 .view-all-products:hover {
-  text-decoration: underline;
+  color: #00ffb9;
 }
 
 .suggestions-loading {
   position: absolute;
-  top: calc(100% + 4px);
+  top: calc(100% + 2px);
   left: 0;
   right: 0;
-  padding: 10px 14px;
-  background: #fff;
-  border: 1px solid #ddd;
-  border-radius: 4px;
+  padding: 12px 20px;
+  background: #000028;
+  border: 1px solid #66667e;
   font-size: 14px;
-  color: #888;
+  color: #9999a9;
 }
