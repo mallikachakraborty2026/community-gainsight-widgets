@@ -29,9 +29,9 @@
   padding: 12px 12px 12px 20px;
   font-size: 14px;
   min-height: 48px;
-  background: transparent;
-  color: #fff;
-  caret-color: #fff;
+  background: transparent !important;
+  color: #fff !important;
+  caret-color: #fff !important;
   appearance: none;
   -webkit-appearance: none;
   z-index: 1;
@@ -45,7 +45,7 @@
 .search-input:-webkit-autofill,
 .search-input:-webkit-autofill:focus {
   -webkit-box-shadow: 0 0 0 50px #000028 inset;
-  -webkit-text-fill-color: #fff;
+  -webkit-text-fill-color: #fff !important;
 }
 
 /* Placeholder overlay — shown when input is empty, hidden when typing */
