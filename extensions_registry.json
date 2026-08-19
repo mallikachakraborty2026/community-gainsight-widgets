@@ -286,15 +286,6 @@
       "path": "./scripts/analytics/script.js"
     },
     {
-      "rules": [
-        {
-          "field": "pageType",
-          "operator": "in",
-          "value": [
-            "global"
-          ]
-        }
-      ],
       "placement": "head",
       "name": "header-test",
       "description": "Tests whether xd-utils and universal-components CDN scripts load correctly",
