@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from 'react'
 
-const SEARCH_API = 'https://api.dc.siemens.com/search'
+const SEARCH_API = 'https://uat.api.dc.siemens.com/search'
 const DEBOUNCE_MS = 300
 const MIN_LENGTH = 2
 
