@@ -1,5 +1,7 @@
 import { useState, useCallback } from 'react'
-import { useCommunitySearch, type SearchHit, SIEMENS_SEARCH_URL } from './useCommunitySearch'
+import { useCommunitySearch, type SearchHit, SIEMENS_SEARCH_URL, COMMUNITY_SEARCH_URL } from './useCommunitySearch'
+
+const COMMUNITY_SEARCH_URL = 'https://siemens-en-sandbox-community.insided.com/search'
 
 function WebItem({ hit, onSelect }: { hit: SearchHit; onSelect: (hit: SearchHit) => void }) {
   return (
@@ -45,14 +47,14 @@ export function SearchWidget() {
     (term = inputValue) => {
       if (!term.trim()) return
       setOpen(false)
-      window.location.href = `${SIEMENS_SEARCH_URL}?query=${encodeURIComponent(term.trim())}`
+      window.location.href = `${COMMUNITY_SEARCH_URL}?q=${encodeURIComponent(term.trim())}`
     },
     [inputValue]
   )
 
   const handleSelectWeb = useCallback((hit: SearchHit) => {
     setOpen(false)
-    window.location.href = `${SIEMENS_SEARCH_URL}?query=${encodeURIComponent(hit.term)}`
+    window.location.href = `${COMMUNITY_SEARCH_URL}?q=${encodeURIComponent(hit.term)}`
   }, [])
 
   return (

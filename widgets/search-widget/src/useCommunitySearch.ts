@@ -6,6 +6,7 @@ const MIN_LENGTH = 2
 
 // TODO: add community-only filter parameter once the AI Search API supports it
 export const SIEMENS_SEARCH_URL = 'https://www.siemens.com/en-us/search.html'
+export const COMMUNITY_SEARCH_URL = 'https://siemens-en-sandbox-community.insided.com/search'
 
 export interface SearchHit {
   term: string
