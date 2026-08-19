@@ -67,6 +67,7 @@ async function querySiemensAI(q: string, signal: AbortSignal): Promise<SearchHit
   if (!res.ok) throw new Error(`HTTP ${res.status}`)
   const { data, errors } = await res.json()
   if (errors?.length) throw new Error(errors[0].message)
+  console.log('[useCommunitySearch] raw API response:', JSON.stringify(data, null, 2))
 
   const webRaw: RawWebSuggestion[] = data?.suggestionsWeb ?? []
   const productRaw: RawProductSuggestion[] = data?.suggestionsProduct ?? []
