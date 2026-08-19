@@ -1,8 +1,11 @@
 (function () {
   'use strict';
 
-  // Synchronous body attribute guard — survives async races, cleared on full reload
-  if (document.body.hasAttribute('data-xd-header')) return;
+  // Skip if header is already injected and still present in DOM
+  if (document.body.hasAttribute('data-xd-header') && document.querySelector('header-xd-v1')) return;
+  // Skip if another execution is already in progress (race guard)
+  if (window.__xdHeaderInjecting) return;
+  window.__xdHeaderInjecting = true;
   document.body.setAttribute('data-xd-header', '1');
 
   console.log('[header-test] script started');
@@ -39,6 +42,7 @@
             log('universalComponents.init called OK');
             if (document.querySelector('header-xd-v1')) {
               log('header-xd-v1 already present, skipping inject');
+              window.__xdHeaderInjecting = false;
               return;
             }
             var header = document.createElement('header-xd-v1');
@@ -47,13 +51,16 @@
             header.setAttribute('locales', 'true');
             header.setAttribute('search', 'true');
             document.body.insertBefore(header, document.body.firstChild);
+            window.__xdHeaderInjecting = false;
             log('header-xd-v1 injected into page');
           } else {
             log('ERROR: window.universalComponents not found');
+            window.__xdHeaderInjecting = false;
           }
         },
         function () {
           log('ERROR: failed to load universal-components from CDN');
+          window.__xdHeaderInjecting = false;
         }
       );
     },
