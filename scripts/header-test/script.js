@@ -33,6 +33,10 @@
           if (window.universalComponents) {
             window.universalComponents.init(['header-xd-v1']);
             log('universalComponents.init called OK');
+            if (document.querySelector('header-xd-v1')) {
+              log('header-xd-v1 already present, skipping inject');
+              return;
+            }
             var header = document.createElement('header-xd-v1');
             header.setAttribute('scroll', 'true');
             header.setAttribute('account', 'true');
