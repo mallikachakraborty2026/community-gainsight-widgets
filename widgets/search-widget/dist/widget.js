@@ -10750,7 +10750,7 @@ function mm() {
             {
               type: "search",
               className: "search-input",
-              placeholder: "Search Siemens…",
+              placeholder: "Search with AI…",
               value: A,
               autoComplete: "off",
               onChange: (C) => {

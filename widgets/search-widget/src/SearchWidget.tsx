@@ -68,7 +68,7 @@ export function SearchWidget() {
         <input
           type="search"
           className="search-input"
-          placeholder="Search Siemens…"
+          placeholder="Search with AI…"
           value={inputValue}
           autoComplete="off"
           onChange={(e) => { setInputValue(e.currentTarget.value); setOpen(true) }}
