@@ -1,11 +1,9 @@
 (function () {
   'use strict';
 
-  // Bail out immediately if header is already in the DOM
-  if (document.querySelector('header-xd-v1')) return;
-  // Bail out if injection is already in progress (prevents race on same load)
-  if (window.__xdHeaderInjecting) return;
-  window.__xdHeaderInjecting = true;
+  // Synchronous body attribute guard — survives async races, cleared on full reload
+  if (document.body.hasAttribute('data-xd-header')) return;
+  document.body.setAttribute('data-xd-header', '1');
 
   console.log('[header-test] script started');
 
@@ -39,26 +37,16 @@
           if (window.universalComponents) {
             window.universalComponents.init(['header-xd-v1']);
             log('universalComponents.init called OK');
-            if (window.__xdHeaderInjected || document.querySelector('header-xd-v1')) {
+            if (document.querySelector('header-xd-v1')) {
               log('header-xd-v1 already present, skipping inject');
-              window.__xdHeaderInjecting = false;
               return;
             }
-            window.__xdHeaderInjected = true;
             var header = document.createElement('header-xd-v1');
             header.setAttribute('scroll', 'true');
             header.setAttribute('account', 'true');
             header.setAttribute('locales', 'true');
             header.setAttribute('search', 'true');
             document.body.insertBefore(header, document.body.firstChild);
-            window.__xdHeaderInjecting = false;
-            // Reset flag if element is removed from DOM (SPA navigation)
-            new MutationObserver(function (_, obs) {
-              if (!document.querySelector('header-xd-v1')) {
-                window.__xdHeaderInjected = false;
-                obs.disconnect();
-              }
-            }).observe(document.body, { childList: true, subtree: false });
             log('header-xd-v1 injected into page');
           } else {
             log('ERROR: window.universalComponents not found');
