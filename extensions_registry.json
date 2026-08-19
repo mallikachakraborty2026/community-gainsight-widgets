@@ -284,6 +284,21 @@
       "name": "analytics",
       "description": "Tracks widget impressions and interactions",
       "path": "./scripts/analytics/script.js"
+    },
+    {
+      "rules": [
+        {
+          "field": "pageType",
+          "operator": "in",
+          "value": [
+            "global"
+          ]
+        }
+      ],
+      "placement": "head",
+      "name": "header-test",
+      "description": "Tests whether xd-utils and universal-components CDN scripts load correctly",
+      "path": "./scripts/header-test/script.js"
     }
 
   ]
