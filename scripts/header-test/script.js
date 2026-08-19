@@ -31,7 +31,6 @@
   }
 
   function loadScript(src, onLoad, onError) {
-    // Skip if already in DOM (e.g. repeated SPA page loads)
     if (document.querySelector('script[src="' + src + '"]')) {
       onLoad();
       return;
@@ -43,8 +42,42 @@
     document.head.appendChild(s);
   }
 
+  function initAndMount() {
+    if (!window.universalComponents) {
+      log('ERROR: window.universalComponents not found');
+      return;
+    }
+    // init() is async — await the Promise before injecting so the custom element
+    // definition is registered and the element upgrades immediately on insertion
+    var result = window.universalComponents.init(['header-xd-v1']);
+    if (result && typeof result.then === 'function') {
+      result.then(function () {
+        log('universalComponents.init resolved');
+        injectHeader();
+        setupObserver();
+      }, function (err) {
+        log('ERROR: universalComponents.init rejected: ' + err);
+        // Even if init rejects, try — element may still be defined
+        if (customElements.get('header-xd-v1')) {
+          injectHeader();
+          setupObserver();
+        }
+      });
+    } else {
+      injectHeader();
+      setupObserver();
+    }
+  }
+
   function main() {
     log('script started');
+    // Use the platform's already-loaded universalComponents when available;
+    // only load xd/universal-components/next as a fallback
+    if (window.universalComponents) {
+      log('using platform universalComponents');
+      initAndMount();
+      return;
+    }
     loadScript(
       'https://static.sw.cdn.siemens.com/xd/xd-utils/next/xd-utils.min.js',
       function () {
@@ -55,23 +88,13 @@
         loadScript(
           'https://static.sw.cdn.siemens.com/xd/universal-components/next/web/index.js',
           function () {
-            log('universal-components loaded');
-            if (window.universalComponents) {
-              window.universalComponents.init(['header-xd-v1']);
-              injectHeader();
-              setupObserver();
-            } else {
-              log('ERROR: window.universalComponents not found');
-            }
+            log('xd/universal-components loaded');
+            initAndMount();
           },
-          function () {
-            log('ERROR: failed to load universal-components');
-          }
+          function () { log('ERROR: failed to load xd/universal-components'); }
         );
       },
-      function () {
-        log('ERROR: failed to load xd-utils');
-      }
+      function () { log('ERROR: failed to load xd-utils'); }
     );
   }
 
