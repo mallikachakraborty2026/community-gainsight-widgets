@@ -1,7 +1,5 @@
 import { useState, useCallback } from 'react'
-import { useCommunitySearch, type SearchHit, SIEMENS_SEARCH_URL, COMMUNITY_SEARCH_URL } from './useCommunitySearch'
-
-const COMMUNITY_SEARCH_URL = 'https://siemens-en-sandbox-community.insided.com/search'
+import { useCommunitySearch, type SearchHit, COMMUNITY_SEARCH_URL } from './useCommunitySearch'
 
 function WebItem({ hit, onSelect }: { hit: SearchHit; onSelect: (hit: SearchHit) => void }) {
   return (
@@ -16,16 +14,15 @@ function WebItem({ hit, onSelect }: { hit: SearchHit; onSelect: (hit: SearchHit)
   )
 }
 
-function ProductItem({ hit }: { hit: SearchHit }) {
-  if (!hit.url || !hit.title) return null
+function ProductItem({ hit, onSelect }: { hit: SearchHit; onSelect: (hit: SearchHit) => void }) {
+  if (!hit.title) return null
   return (
-    <div className="product-item">
-      <a
+    <div
+      className="product-item"
+      onMouseDown={(e) => { e.preventDefault(); onSelect(hit) }}
+    >
+      <div
         className="product-link"
-        href={hit.url}
-        target="_blank"
-        rel="noreferrer noopener"
-        onMouseDown={(e) => e.preventDefault()}
         dangerouslySetInnerHTML={{ __html: hit.title }}
       />
       {hit.label && <div className="product-by">by {hit.label}</div>}
@@ -53,6 +50,11 @@ export function SearchWidget() {
   )
 
   const handleSelectWeb = useCallback((hit: SearchHit) => {
+    setOpen(false)
+    window.location.href = `${COMMUNITY_SEARCH_URL}?q=${encodeURIComponent(hit.term)}`
+  }, [])
+
+  const handleSelectProduct = useCallback((hit: SearchHit) => {
     setOpen(false)
     window.location.href = `${COMMUNITY_SEARCH_URL}?q=${encodeURIComponent(hit.term)}`
   }, [])
@@ -101,16 +103,14 @@ export function SearchWidget() {
             <div className="suggestions-section suggestions-products" role="group">
               <div className="section-header">Products</div>
               {productHits.map((hit) => (
-                <ProductItem key={`product-${hit.term}`} hit={hit} />
+                <ProductItem key={`product-${hit.term}`} hit={hit} onSelect={handleSelectProduct} />
               ))}
               <a
                 className="view-all-products"
-                href={`${SIEMENS_SEARCH_URL}?query=${encodeURIComponent(inputValue)}&tab=2`}
-                target="_blank"
-                rel="noreferrer noopener"
+                href={`${COMMUNITY_SEARCH_URL}?q=${encodeURIComponent(inputValue)}`}
                 onMouseDown={(e) => e.preventDefault()}
               >
-                View all products
+                View all in community
               </a>
             </div>
           )}
