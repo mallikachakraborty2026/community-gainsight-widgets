@@ -10597,7 +10597,7 @@ function nm() {
   return A(), ic.exports = em(), ic.exports;
 }
 var fm = nm(), Dt = dc();
-const im = "https://api.dc.siemens.com/search", cm = 300, sm = 2, Qn = "https://siemens-en-sandbox-community.insided.com/search", om = `
+const im = "https://uat.api.dc.siemens.com/search", cm = 300, sm = 2, Qn = "https://siemens-en-sandbox-community.insided.com/search", om = `
   query GlobalSearchSuggestions($web: Suggestion!, $product: Suggestion!) {
     suggestionsWeb: suggestions(suggestion: $web) { term type highlighted }
     suggestionsProduct: suggestions(suggestion: $product) {
