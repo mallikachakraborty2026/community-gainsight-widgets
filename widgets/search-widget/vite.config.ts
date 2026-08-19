@@ -8,6 +8,7 @@ export default defineConfig(({ command }) => ({
   },
   define: command === "build" ? { "process.env.NODE_ENV": JSON.stringify("production") } : {},
   build: {
+    emptyOutDir: false,
     lib: {
       entry: "src/main.tsx",
       formats: ["es"],
