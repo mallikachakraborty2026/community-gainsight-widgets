@@ -6,9 +6,10 @@ import { Search } from "./Search/Search";
 export function App() {
   return (
     <section className="react-widget-section">
+      return <h1>MALLIKA TEST APP</h1>;
       {/* <Banner />
       <Promo /> */}
-      <Search />
+      {/* <Search /> */}
     </section>
   );
 }

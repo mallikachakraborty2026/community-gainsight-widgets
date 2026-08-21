@@ -22,10 +22,11 @@ export async function init(sdk: WidgetSDK) {
   styles.add(style);
   sdk.shadowRoot.insertBefore(style, sdk.shadowRoot.firstChild);
   const root = createRoot(sdk.getContainer());
+  <App />
   // root.render(<App sdk={sdk} />);
-   <WidgetErrorBoundary>
-    <App />
-  </WidgetErrorBoundary>
+  //  <WidgetErrorBoundary>
+  //   <App />
+  // </WidgetErrorBoundary>
   sdk.on("destroy", () => {
     styles.delete(style);
     style.remove();
