@@ -1,0 +1,25 @@
+.promo {
+  width: 100%;
+  padding: 24px;
+  box-sizing: border-box;
+}
+
+.promo-content {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.promo h2 {
+  margin: 0 0 10px;
+  font-size: 24px;
+}
+
+.promo p {
+  margin: 0 0 16px;
+  font-size: 16px;
+}
+
+.promo-link {
+  text-decoration: none;
+  font-weight: 600;
+}

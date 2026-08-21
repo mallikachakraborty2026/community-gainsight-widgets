@@ -13,6 +13,20 @@
       },
       "defaultConfig": {},
       "type": "community-search"
+    },
+    {
+      "title": "Community Search Comps",
+      "description": "Search box powered by the Siemens search API. Navigates to community search results on submit.",
+      "category": "custom",
+      "source": {
+        "path": "widgets/community-search/dist",
+        "entry": "index.html"
+      },
+      "configuration": {
+        "properties": []
+      },
+      "defaultConfig": {},
+      "type": "community-search"
     }
   ],
   "stylesheets": [

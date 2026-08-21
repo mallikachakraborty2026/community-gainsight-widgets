@@ -1,0 +1,5 @@
+/* shared/global stylesheet for all widgets under components*/
+.react-widget-section {
+  width: 100%;
+  box-sizing: border-box;
+}
