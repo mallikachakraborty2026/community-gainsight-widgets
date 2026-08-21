@@ -1,6 +1,6 @@
-import { Banner } from "./components/Banner/Banner";
-import { Promo } from "./components/Promo/Promo";
-import { Search } from "./components/Search/Search";
+import { Banner } from "./Banner/Banner";
+import { Promo } from "./Promo/Promo";
+import { Search } from "./Search/Search";
 
 
 export function App() {
