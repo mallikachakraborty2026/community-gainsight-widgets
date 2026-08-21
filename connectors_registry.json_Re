@@ -1,0 +1,57 @@
+{
+  "connectors": [
+    {
+      "name": "REST Countries Mallika",
+      "url": "https://restcountries.com/v3.1/all",
+      "method": "GET",
+      "headers": [
+        {
+          "key": "Accept",
+          "value": "application/json",
+          "overridable": false
+        }
+      ],
+      "query_parameters": [
+        {
+          "key": "fields",
+          "value": "name,capital,population,flags,region",
+          "overridable": false
+        }
+      ],
+      "permalink": "rest-countries-mallika",
+      "response_content_type": "application/json"
+    }
+  ],
+  "composite_connectors": [
+    {
+      "name": "Country Lookup Mallika",
+      "permalink": "country-lookup-mallika",
+      "steps": [
+        {
+          "name": "all-countries",
+          "url": "https://restcountries.com/v3.1/all",
+          "method": "GET",
+          "query_parameters": [
+            {
+              "key": "fields",
+              "value": "name,region",
+              "overridable": false
+            }
+          ]
+        },
+        {
+          "name": "europe-countries",
+          "url": "https://restcountries.com/v3.1/region/europe",
+          "method": "GET",
+          "query_parameters": [
+            {
+              "key": "fields",
+              "value": "name,capital,population",
+              "overridable": false
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

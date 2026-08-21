@@ -1,8 +1,77 @@
 {
-  "widgets": [    
+  "widgets": [
     {
       "title": "Community Search",
-      "description": "Search box powered by the Siemens search API. Navigates to community search results on submit.",
+      "description": "A community widget with banner, promo, and search functionality.",
+      "category": "Community",
+      "imageSrc": "widgets/community-search/thumbnail.png",
+      "source": {
+        "path": "widgets/community-search/dist",
+        "entry": "index.html"
+      },
+      "configuration": {
+        "properties": [
+          {
+            "name": "title",
+            "type": "text",
+            "label": "Title",
+            "defaultValue": "Community Search",
+            "rules": {
+              "required": true
+            }
+          },
+          {
+            "name": "description",
+            "type": "text",
+            "label": "Description",
+            "defaultValue": "Search the Siemens Community."
+          }
+        ]
+      },
+      "defaultConfig": {
+        "title": "Community Search",
+        "description": "Search the Siemens Community."
+      },
+      "type": "community-search"
+    },
+    {
+      "title": "Countries React",
+      "description": "A widget built with React and the Widget SDK.",
+      "category": "Demo",
+      "imageSrc": "widgets/countries-react/thumbnail.png",
+      "source": {
+        "path": "widgets/countries-react/dist",
+        "entry": "index.html"
+      },
+      "configuration": {
+        "properties": [
+          {
+            "name": "title",
+            "type": "text",
+            "label": "Title",
+            "defaultValue": "Countries React",
+            "rules": {
+              "required": true
+            }
+          },
+          {
+            "name": "description",
+            "type": "text",
+            "label": "Description",
+            "defaultValue": "A widget built with React and the Widget SDK."
+          }
+        ]
+      },
+      "defaultConfig": {
+        "title": "Countries React",
+        "description": "A widget built with React and the Widget SDK."
+      },
+      "type": "countries-react"
+    },
+    {
+      "title": "Search Widget",
+      "type": "search-widget",
+      "description": "Search box that queries the Siemens search API and navigates to community results.",
       "category": "custom",
       "source": {
         "path": "widgets/search-widget/dist",
@@ -10,29 +79,40 @@
       },
       "configuration": {
         "properties": []
-      },
-      "defaultConfig": {},
-      "type": "community-search"
-    },
-    {
-      "title": "Community Search Comps",
-      "description": "new search",
-      "category": "example",
-      "source": {
-        "path": "widgets/community-search/dist",
-        "entry": "index.html"
-      },
-      "configuration": {
-        "properties": []
-      },
-      "defaultConfig": {},
-      "type": "community-search-comps"
+      }
     }
   ],
   "stylesheets": [
-
+    {
+      "rules": [
+        {
+          "field": "pageType",
+          "operator": "in",
+          "value": [
+            "global"
+          ]
+        }
+      ],
+      "name": "theme",
+      "description": "Shared design tokens and component styles",
+      "path": "./stylesheets/theme/style.css"
+    }
   ],
   "scripts": [
-
+    {
+      "rules": [
+        {
+          "field": "pageType",
+          "operator": "in",
+          "value": [
+            "global"
+          ]
+        }
+      ],
+      "placement": "head",
+      "name": "analytics",
+      "description": "Tracks widget impressions and interactions",
+      "path": "./scripts/analytics/script.js"
+    }
   ]
 }

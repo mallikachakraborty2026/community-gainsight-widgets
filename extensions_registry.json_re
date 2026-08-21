@@ -1,0 +1,38 @@
+{
+  "widgets": [    
+    {
+      "title": "Search Widget",
+      "description": "Search box powered by the Siemens search API. Navigates to community search results on submit.",
+      "category": "custom",
+      "source": {
+        "path": "widgets/search-widget/dist",
+        "entry": "index.html"
+      },
+      "configuration": {
+        "properties": []
+      },
+      "defaultConfig": {},
+      "type": "search-widget"
+    },
+    {
+      "title": "Community Search",
+      "description": "A community widget with banner, promo, and search functionality.",
+      "category": "Community",
+      "source": {
+        "path": "widgets/community-search/dist",
+        "entry": "index.html"
+      },
+      "configuration": {
+        "properties": []
+      },
+      "defaultConfig": {},
+      "type": "community-search"
+    }
+  ],
+  "stylesheets": [
+
+  ],
+  "scripts": [
+
+  ]
+}
