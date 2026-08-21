@@ -1,5 +1,5 @@
 import { SearchButton } from "./SearchButton";
-
+import "./SearchButton.css";
 export function SearchBox() {
   return (
     <div className="search-box">
