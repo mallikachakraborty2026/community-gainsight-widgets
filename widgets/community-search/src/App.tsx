@@ -6,8 +6,8 @@ import { Search } from "./Search/Search";
 export function App() {
   return (
     <section className="react-widget-section">
-      <Banner />
-      <Promo />
+      {/* <Banner />
+      <Promo /> */}
       <Search />
     </section>
   );
