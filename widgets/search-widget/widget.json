@@ -1,6 +1,6 @@
 {
-  "title": "Community Search",
-  "type": "community-search",
+  "title": "Search Widget",
+  "type": "Search Widget",
   "description": "Search box that queries the Siemens search API and navigates to community results.",
   "category": "custom",
   "source": {
