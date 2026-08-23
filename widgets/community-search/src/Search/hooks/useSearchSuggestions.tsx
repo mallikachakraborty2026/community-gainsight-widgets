@@ -62,7 +62,7 @@ async function querySiemensSearch(q: string): Promise<SearchHit[]> {
   const response = await connector.execute({
     permalink: "siemens-search-api",
     method: "POST",
-    body: {
+    body: JSON.stringify({
       query: GQL_QUERY,
       variables: {
         web: {
@@ -97,7 +97,7 @@ async function querySiemensSearch(q: string): Promise<SearchHit[]> {
           },
         },
       },
-    },
+    }),
   });
 
   console.log(

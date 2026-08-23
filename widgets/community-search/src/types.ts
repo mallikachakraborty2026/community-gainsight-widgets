@@ -59,7 +59,7 @@ export interface WidgetServiceSDK {
     execute(opts: {
       permalink: string;
       method: string;
-      body?: unknown;
+      body?: string;
     }): Promise<SearchResponse>;
   };
 }

@@ -10643,7 +10643,7 @@ async function d1(A) {
   const q = await new window.WidgetServiceSDK().connectors.execute({
     permalink: "siemens-search-api",
     method: "POST",
-    body: {
+    body: JSON.stringify({
       query: m1,
       variables: {
         web: {
@@ -10677,7 +10677,7 @@ async function d1(A) {
           }
         }
       }
-    }
+    })
   });
   console.log(
     "[useSearchSuggestions] raw API response:",
