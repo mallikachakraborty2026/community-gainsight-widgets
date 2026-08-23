@@ -1,4 +1,28 @@
 {
-  "connectors": [],
-  "composite_connectors": []
+  "connectors": [
+    {
+      "name": "Siemens Search API",
+      "url": "https://uat.api.dc.siemens.com/search",
+      "method": "POST",
+      "headers": [
+        {
+          "key": "content-type",
+          "value": "application/json",
+          "overridable": false
+        },
+        {
+          "key": "X-Siemens-One-Preview",
+          "value": "enabled",
+          "overridable": false
+        },
+        {
+          "key": "authorization",
+          "value": "anonymous",
+          "overridable": false
+        }
+      ],
+      "permalink": "siemens-search-api",
+      "response_content_type": "application/json"
+    }
+  ]
 }
