@@ -2,7 +2,7 @@
   "connectors": [
     {
       "name": "Siemens Search API",
-      "url": "{{ get_variable('siemens_search_api_url') }}",
+      "url": "https://uat.api.dc.siemens.com/search",
       "method": "POST",
       "headers": [
         {
