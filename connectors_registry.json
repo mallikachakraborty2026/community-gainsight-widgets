@@ -26,7 +26,7 @@
     },
     {
       "name": "REST Countries Mallika",
-      "url": "{{ get_variable('test') }}",
+      "url": "{{ get_variable('test') }}/search",
       "method": "GET",
       "headers": [
         {
