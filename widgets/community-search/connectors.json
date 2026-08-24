@@ -2,7 +2,8 @@
   "connectors": [
     {
       "name": "Siemens Search API",
-      "url": "{{ get_variable('siemens_search_api_url') }}/search",
+      "permalink": "siemens-search-api",
+      "url": "{{ get_variable('siemens_search_api_url') }}",
       "method": "POST",
       "headers": [
         {
@@ -21,7 +22,6 @@
           "overridable": false
         }
       ],
-      "permalink": "siemens-search-api",
       "response_content_type": "application/json"
     }
   ]

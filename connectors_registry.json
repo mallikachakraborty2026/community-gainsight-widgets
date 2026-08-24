@@ -2,7 +2,8 @@
   "connectors": [
     {
       "name": "Siemens Search API",
-      "url": "{{ get_variable('siemens_search_api_url') }}",
+      "permalink": "siemens-search-api",
+      "url": "https://uat.api.dc.siemens.com/search",
       "method": "POST",
       "headers": [
         {
@@ -21,12 +22,11 @@
           "overridable": false
         }
       ],
-      "permalink": "siemens-search-api",
       "response_content_type": "application/json"
     },
     {
       "name": "REST Countries Mallika",
-      "url": "https://restcountries.com/v3.1/all",
+      "url": "{{ get_variable('test') }}",
       "method": "GET",
       "headers": [
         {
