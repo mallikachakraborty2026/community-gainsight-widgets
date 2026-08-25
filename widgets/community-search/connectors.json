@@ -3,7 +3,7 @@
     {
       "name": "Siemens Search API",
       "permalink": "siemens-search-api",
-      "url": "{{ get_variable('siemens_search_api_url') }}",
+      "url": "{{ get_variable('siemens_search_api_url') }}/services",
       "method": "POST",
       "headers": [
         {
