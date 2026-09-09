@@ -3,7 +3,7 @@
     {
       "name": "Siemens Search API",
       "permalink": "siemens-search-api",
-      "url": "{{ get_variable('siemens_search_api_url') }}/search",
+      "url": "https://{{ get_variable('siemens_search_api_url') }}/search",
       "method": "POST",
       "headers": [
         {
@@ -26,7 +26,7 @@
     },
     {
       "name": "REST Countries Mallika",
-      "url": "https://google.com/{{ get_variable('test1') }}",
+      "url": "{{ get_variable('test') }}",
       "method": "GET",
       "headers": [
         {
